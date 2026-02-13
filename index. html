@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGU1 - Multi-Service Elite Platform</title>
+    <style>
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d00ff;
+            --main-bg: #030303;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background: var(--main-bg);
+            color: #fff;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* خلفية النبض الكهربائي */
+        .electric-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a192f 0%, #000 100%);
+            z-index: -1;
+        }
+
+        /* الشعار النابض والسلاسل */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .logo-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px var(--neon-blue);
+            animation: pulse 1.5s infinite;
+        }
+
+        .chain-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px dashed var(--neon-blue);
+            border-radius: 50%;
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
+
+        /* شبكة الخدمات الفخمة */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .card h3 { color: var(--neon-blue); margin-bottom: 15px; }
+
+        /* حماية الكود */
+        body { -webkit-user-select: none; user-select: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="electric-bg"></div>
+
+<header class="header">
+    <div class="logo-box">
+        <div class="chain-ring"></div>
+        <div class="logo-text">UGU1</div>
+    </div>
+    <h1 style="font-size: 1.2rem; margin-top: 20px; color: #888;">منصة الخدمات المتكاملة | التحميل، البريد، الروابط، والأرقام</h1>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <h3>Social Downloader</h3>
+        <p>تحميل من كافة المنصات بدون علامة مائية</p>
+    </div>
+    <div class="card">
+        <h3>Temp Mail</h3>
+        <p>خدمة بريد مؤقت حقيقية لاستقبال الرسائل</p>
+    </div>
+    <div class="card">
+        <h3>Link Shortener</h3>
+        <p>اختصار روابط آمن مع نظام حماية متطور</p>
+    </div>
+    <div class="card">
+        <h3>Virtual Numbers</h3>
+        <p>أرقام دولية لاستقبال رموز التفعيل</p>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 40px; color: #444;">
+    &copy; 2026 UGU1. جميع الحقوق محفوظة. سياسة الخصوصية متوفرة.
+</footer>
+
+<script>
+    // منع الاختصارات
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    }
+</script>
+</body>
+</html>
+
