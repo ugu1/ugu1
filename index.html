@@ -3,143 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UGU1 - Multi-Service Elite Platform</title>
+    <title>الرعد للتحميل الذكي | Thunder Downloader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-blue: #00d2ff;
-            --neon-purple: #9d00ff;
-            --main-bg: #030303;
-            --glass: rgba(255, 255, 255, 0.03);
-        }
-
+        :root { --neon-blue: #00f3ff; --neon-purple: #bc13fe; }
         body {
-            background: var(--main-bg);
-            color: #fff;
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            height: 100vh;
+            background-color: #050505; color: white; font-family: 'Cairo', sans-serif;
+            margin: 0; overflow-x: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
         }
-
-        /* خلفية النبض الكهربائي */
-        .electric-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a192f 0%, #000 100%);
-            z-index: -1;
+        /* تأثير البرق */
+        .lightning-flash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; opacity: 0; pointer-events: none; z-index: 9999;
         }
-
-        /* الشعار النابض والسلاسل */
-        .header {
-            text-align: center;
-            padding: 50px 20px;
+        .container {
+            text-align: center; z-index: 10; padding: 20px; border: 2px solid var(--neon-blue);
+            border-radius: 20px; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 20px var(--neon-blue);
         }
-
-        .logo-box {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h1 { font-size: 3rem; text-shadow: 0 0 10px var(--neon-blue); margin-bottom: 10px; }
+        input {
+            width: 80%; padding: 15px; border-radius: 10px; border: none; outline: none;
+            font-size: 1.1rem; text-align: center; margin-bottom: 20px;
         }
-
-        .logo-text {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px var(--neon-blue);
-            animation: pulse 1.5s infinite;
+        button {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white; border: none; padding: 15px 40px; font-size: 1.5rem; font-weight: bold;
+            border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px var(--neon-purple);
         }
-
-        .chain-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px dashed var(--neon-blue);
-            border-radius: 50%;
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
-
-        /* شبكة الخدمات الفخمة */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 15px;
-            padding: 40px 20px;
-            text-align: center;
-            transition: 0.3s;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .card h3 { color: var(--neon-blue); margin-bottom: 15px; }
-
-        /* حماية الكود */
-        body { -webkit-user-select: none; user-select: none; }
+        button:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--neon-blue); }
+        #status { margin-top: 20px; font-weight: bold; color: var(--neon-blue); }
+        /* مكان الإعلانات */
+        .ad-space { margin-top: 30px; width: 300px; height: 250px; border: 1px dashed #444; display: flex; align-items: center; justify-content: center; color: #666; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-<div class="electric-bg"></div>
+<div class="lightning-flash" id="flash"></div>
 
-<header class="header">
-    <div class="logo-box">
-        <div class="chain-ring"></div>
-        <div class="logo-text">UGU1</div>
-    </div>
-    <h1 style="font-size: 1.2rem; margin-top: 20px; color: #888;">منصة الخدمات المتكاملة | التحميل، البريد، الروابط، والأرقام</h1>
-</header>
+<div class="container">
+    <h1>⚡ الرعد للتحميل ⚡</h1>
+    <p>أدخل رابط الفيديو (يوتيوب، فيسبوك، تيك توك) وسأهبط عليه كالصاعقة!</p>
+    
+    <input type="text" id="videoUrl" placeholder="ضع الرابط هنا يا غالي...">
+    <br>
+    <button onclick="startDownload()">⚡ إهبط الآن! ⚡</button>
+    
+    <div id="status">جاهز للعمل...</div>
 
-<div class="grid">
-    <div class="card">
-        <h3>Social Downloader</h3>
-        <p>تحميل من كافة المنصات بدون علامة مائية</p>
-    </div>
-    <div class="card">
-        <h3>Temp Mail</h3>
-        <p>خدمة بريد مؤقت حقيقية لاستقبال الرسائل</p>
-    </div>
-    <div class="card">
-        <h3>Link Shortener</h3>
-        <p>اختصار روابط آمن مع نظام حماية متطور</p>
-    </div>
-    <div class="card">
-        <h3>Virtual Numbers</h3>
-        <p>أرقام دولية لاستقبال رموز التفعيل</p>
+    <div class="ad-space">
+        <p>إعلان هيل توب (سيظهر هنا بعد الموافقة)</p>
     </div>
 </div>
 
-<footer style="text-align: center; padding: 40px; color: #444;">
-    &copy; 2026 UGU1. جميع الحقوق محفوظة. سياسة الخصوصية متوفرة.
-</footer>
+<audio id="thunderSound" src="https://www.soundjay.com/nature/thunder-storm-01.mp3"></audio>
 
 <script>
-    // منع الاختصارات
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    const SERVER_URL = "https://8a6c93780549d7fe-151-244-144-67.serveousercontent.com"; // رابط سيرفرك
+
+    function startDownload() {
+        const url = document.getElementById('videoUrl').value;
+        const status = document.getElementById('status');
+        const flash = document.getElementById('flash');
+        const thunder = document.getElementById('thunderSound');
+
+        if (!url) { status.innerText = "أين الرابط يا بطل؟"; return; }
+
+        // تأثير البرق والرعد
+        flash.style.opacity = "0.8";
+        setTimeout(() => flash.style.opacity = "0", 100);
+        setTimeout(() => flash.style.opacity = "0.8", 200);
+        setTimeout(() => flash.style.opacity = "0", 400);
+        thunder.play();
+
+        status.innerText = "جاري تجميع الصواعق وجلب الفيديو... ⚡";
+
+        fetch(`${SERVER_URL}/download`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: url })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                status.innerHTML = `✅ تم الصيد بنجاح!<br><a href="${data.download_link}" style="color:yellow; text-decoration:none; font-size:1.8rem;" target="_blank">إضغط هنا لبدء التحميل النهائي</a>`;
+            } else {
+                status.innerText = "عذراً، الفيديو محمي أو الرابط خاطئ.";
+            }
+        })
+        .catch(error => {
+            status.innerText = "السيرفر في جوالك مغلق حالياً، تأكد من فتح Termux.";
+            console.error(error);
+        });
     }
 </script>
+
 </body>
 </html>
-
