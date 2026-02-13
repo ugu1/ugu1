@@ -3,131 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thunder Hub | الخدمات الذكية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Thunder Hub | منصة الخدمات الرقمية الشاملة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #00f3ff; --bg: #0d0d0f; --card: #161618; }
-        body { background-color: var(--bg); color: white; font-family: 'Tajawal', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 40px; }
-        header h1 { color: var(--accent); font-size: 2.5rem; margin: 0; }
+        :root { --neon: #00f3ff; --bg: #0a0a0b; --card: #161618; }
+        body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 50px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #222; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,243,255,0.1); }
-        
-        h2 { font-size: 1.3rem; margin-top: 0; display: flex; align-items: center; gap: 10px; color: var(--accent); }
-        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #222; color: white; margin: 10px 0; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; }
-        button { flex: 1; padding: 12px; border-radius: 10px; border: none; background: var(--accent); color: black; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        button:hover { opacity: 0.8; }
-        .secondary { background: #333; color: white; }
+        /* رأس الصفحة */
+        .hero { text-align: center; padding: 50px 20px; background: linear-gradient(180deg, #1a1a1d 0%, var(--bg) 100%); border-bottom: 1px solid #333; }
+        .hero h1 { font-size: 2.8rem; color: var(--neon); margin: 0; text-shadow: 0 0 20px rgba(0,243,255,0.4); }
+        .hero p { color: #888; font-size: 1.1rem; margin-top: 10px; }
 
-        /* صندوق الرسائل والعداد */
-        .inbox { background: #000; height: 150px; border-radius: 10px; margin-top: 15px; padding: 10px; overflow-y: auto; font-size: 0.85rem; border: 1px solid #222; }
-        .timer { font-size: 0.9rem; color: #ff4444; margin-bottom: 5px; text-align: center; font-weight: bold; }
-        .msg-item { border-bottom: 1px solid #222; padding: 8px 0; color: #ccc; }
+        /* الشبكة والخدمات */
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; padding: 30px; max-width: 1200px; margin: 0 auto; }
+        .service-card { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #222; transition: 0.3s; position: relative; }
+        .service-card:hover { border-color: var(--neon); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        h2 { color: var(--neon); font-size: 1.4rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333; background: #222; color: #fff; margin: 12px 0; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--neon); }
+        
+        .btn-group { display: flex; gap: 10px; }
+        button { flex: 1; padding: 14px; border-radius: 12px; border: none; background: var(--neon); color: #000; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        button:hover { filter: brightness(1.2); }
+        .btn-secondary { background: #333; color: white; }
+
+        /* صندوق الوارد */
+        .inbox { margin-top: 15px; background: #000; padding: 15px; border-radius: 12px; height: 150px; overflow-y: auto; font-size: 0.9rem; border: 1px solid #222; text-align: right; }
+        .msg { border-bottom: 1px solid #222; padding: 10px 0; color: #00f3ff; }
+        
+        .footer { text-align: center; color: #444; padding: 40px; border-top: 1px solid #222; margin-top: 50px; }
     </style>
 </head>
 <body>
 
+<div class="hero">
+    <h1>Thunder Hub ⚡</h1>
+    <p>أسرع منصة لخدمات البريد المؤقت، اختصار الروابط، وتحميل الوسائط</p>
+</div>
+
 <div class="container">
-    <header>
-        <h1>Thunder Hub ⚡</h1>
-        <p>بوابتك الرسمية للخدمات الرقمية الحقيقية</p>
-    </header>
-
-    <div class="grid">
-        <div class="card">
-            <h2>📧 بريد مؤقت حقيقي</h2>
-            <div id="countdown" class="timer">الوقت المتبقي: 10:00</div>
-            <input type="text" id="mailAddress" readonly placeholder="إضغط لتوليد بريد...">
-            <div class="btn-group">
-                <button onclick="generateMail()">توليد جديد</button>
-                <button class="secondary" onclick="copyMail()">نسخ</button>
-            </div>
-            <button onclick="fetchMessages()" style="margin-top:10px; background:#222; color:var(--accent); border:1px solid var(--accent);">تحديث الرسائل</button>
-            <div class="inbox" id="mailInbox">الرسائل تظهر هنا تلقائياً...</div>
-        </div>
-
-        <div class="card">
-            <h2>🔗 اختصار الروابط</h2>
-            <input type="text" id="longUrl" placeholder="ضع الرابط الطويل هنا...">
-            <button onclick="shortenUrl()">اختصار الآن</button>
-            <input type="text" id="shortUrl" readonly placeholder="الرابط المختصر">
-            <button class="secondary" onclick="copyShort()" style="margin-top:5px;">نسخ الرابط</button>
-        </div>
-
-        <div class="card">
-            <h2>📱 أرقام استقبال SMS</h2>
-            <select id="activePhone" style="width:100%; padding:10px; background:#222; color:white; border-radius:10px; border:1px solid #333;">
-                <option value="12132382581">الولايات المتحدة: +1 (213) 238-2581</option>
-                <option value="447700900123">المملكة المتحدة: +44 7700 900123</option>
-            </select>
-            <button onclick="loadSMS()" style="margin-top:15px;">عرض الرسائل الواصلة (OTP)</button>
-            <div class="inbox" id="smsInbox">بانتظار وصول كود التفعيل...</div>
-        </div>
+    
+    <div class="service-card">
+        <h2>📥 تحميل الفيديو</h2>
+        <input type="text" id="videoUrl" placeholder="أدخل رابط الفيديو (TikTok, YT, FB)...">
+        <button onclick="startDownload()">بدء المعالجة الذكية</button>
+        <div id="dlStatus" style="margin-top:15px; text-align:center; font-weight:bold;"></div>
     </div>
+
+    <div class="service-card">
+        <h2>📧 بريد مؤقت (10 دقائق)</h2>
+        <input type="text" id="mailAddr" readonly placeholder="إضغط لتوليد بريد حقيقي...">
+        <div class="btn-group">
+            <button onclick="generateMail()">توليد بريد</button>
+            <button class="btn-secondary" onclick="copyMail()">نسخ</button>
+        </div>
+        <button onclick="fetchMessages()" style="margin-top:10px; background:white; color:black;">تحديث الرسائل الواردة 📥</button>
+        <div class="inbox" id="mailInbox">بانتظار وصول الرسائل...</div>
+    </div>
+
+    <div class="service-card">
+        <h2>🔗 اختصار الروابط</h2>
+        <input type="text" id="longUrl" placeholder="أدخل الرابط الطويل هنا...">
+        <button onclick="shortenUrl()">اختصار الرابط الآن</button>
+        <input type="text" id="shortResult" readonly placeholder="الرابط المختصر سيظهر هنا">
+    </div>
+
+</div>
+
+<div class="footer">
+    إمبراطورية الرعد © 2026 - جميع الحقوق محفوظة<br>
+    Powered by Thunder Server (Termux)
 </div>
 
 <script>
-    // --- برمجة البريد المؤقت (Real API) ---
-    let login = "", domain = "", timer;
-    function startTimer(duration) {
-        let time = duration;
-        clearInterval(timer);
-        timer = setInterval(() => {
-            let mins = Math.floor(time / 60);
-            let secs = time % 60;
-            document.getElementById('countdown').innerText = `الوقت المتبقي: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            if (--time < 0) { generateMail(); }
-        }, 1000);
+    // الرابط الذي دمجته لك بناءً على سيرفرك الحالي
+    const SERVER_URL = "https://8a6c93780549d7fe-151-244-144-67.serveousercontent.com";
+
+    // --- وظيفة التحميل (تيرموكس) ---
+    async function startDownload() {
+        const url = document.getElementById('videoUrl').value;
+        const status = document.getElementById('dlStatus');
+        if(!url) { status.innerText = "⚠️ يرجى وضع الرابط أولاً"; return; }
+        
+        status.style.color = "#00f3ff";
+        status.innerText = "جاري الاتصال بالسيرفر... ⚡";
+
+        try {
+            const res = await fetch(`${SERVER_URL}/download`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({url: url})
+            });
+            const data = await res.json();
+            if(data.status === "success") {
+                status.innerHTML = `<a href="${data.download_link}" target="_blank" style="color:#00ff00; text-decoration:none; font-size:1.2rem;">✅ جاهز! إضغط هنا للتحميل</a>`;
+            } else {
+                status.style.color = "red";
+                status.innerText = "❌ فشل في جلب الفيديو.";
+            }
+        } catch(e) {
+            status.style.color = "red";
+            status.innerText = "⚠️ السيرفر في تيرموكس متوقف حالياً.";
+        }
     }
 
+    // --- وظيفة البريد المؤقت (Real API) ---
+    let userLogin = "", userDomain = "";
     async function generateMail() {
         const res = await fetch("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1");
         const data = await res.json();
-        document.getElementById('mailAddress').value = data[0];
-        [login, domain] = data[0].split('@');
-        startTimer(600); // 10 دقائق
-        document.getElementById('mailInbox').innerHTML = "تم إنشاء البريد. بانتظار الرسائل...";
+        document.getElementById('mailAddr').value = data[0];
+        [userLogin, userDomain] = data[0].split('@');
+        document.getElementById('mailInbox').innerHTML = "بانتظار وصول الرسائل...";
     }
 
     async function fetchMessages() {
-        if(!login) return;
-        const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${login}&domain=${domain}`);
+        if(!userLogin) return alert("يرجى توليد بريد أولاً!");
+        const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${userLogin}&domain=${userDomain}`);
         const msgs = await res.json();
-        let html = msgs.map(m => `<div class="msg-item"><b>من:</b> ${m.from}<br><b>الموضوع:</b> ${m.subject}</div>`).join('') || "لا توجد رسائل جديدة.";
-        document.getElementById('mailInbox').innerHTML = html;
+        let html = msgs.map(m => `<div class="msg"><b>من:</b> ${m.from}<br><b>الموضوع:</b> ${m.subject}</div>`).join('');
+        document.getElementById('mailInbox').innerHTML = html || "لا توجد رسائل جديدة بعد..";
     }
 
     function copyMail() {
-        let input = document.getElementById('mailAddress');
-        input.select();
+        const copyText = document.getElementById("mailAddr");
+        copyText.select();
         document.execCommand("copy");
-        alert("تم نسخ البريد!");
+        alert("تم النسخ: " + copyText.value);
     }
 
-    // --- برمجة اختصار الروابط (Real API) ---
+    // --- وظيفة اختصار الروابط (TinyURL) ---
     async function shortenUrl() {
         const long = document.getElementById('longUrl').value;
         if(!long) return;
         const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(long)}`);
         const short = await res.text();
-        document.getElementById('shortUrl').value = short;
-    }
-
-    function copyShort() {
-        let input = document.getElementById('shortUrl');
-        input.select();
-        document.execCommand("copy");
-        alert("تم نسخ الرابط المختصر!");
-    }
-
-    // --- برمجة الأرقام (واجهة تجريبية) ---
-    function loadSMS() {
-        document.getElementById('smsInbox').innerHTML = "جاري الاتصال بسيرفر الأرقام...<br>نعتذر، الخدمة تحت الصيانة حالياً لضغط المستخدمين.";
+        document.getElementById('shortResult').value = short;
     }
 </script>
+
 </body>
 </html>
